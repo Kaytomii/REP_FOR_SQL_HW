@@ -64,6 +64,22 @@ CREATE TABLE GroupsLectures
     FOREIGN KEY (LectureId) REFERENCES Lectures(Id)
 );
 
+CREATE TABLE GroupsCurators
+(
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    CuratorId INT NOT NULL,
+    GroupId INT NOT NULL,
+
+    FOREIGN KEY (CuratorId) REFERENCES Teachers(teachers_id),
+    FOREIGN KEY (GroupId) REFERENCES Groups(groups_id)
+);
+
+CREATE TABLE Students
+(
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL CHECK(Name <> ' '),
+    Surname NVARCHAR(100) NOT NULL CHECK(Surname <> ' ')
+);
 
 INSERT INTO Faculties (name)
 VALUES
