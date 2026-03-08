@@ -35,6 +35,36 @@ CREATE TABLE Teachers
 	department_id INT FOREIGN KEY REFERENCES Departments(department_id)
 );
 
+CREATE TABLE Subjects
+(
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL UNIQUE CHECK(Name <> ' ')
+);
+
+
+CREATE TABLE Lectures
+(
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    DayOfWeek INT NOT NULL CHECK(DayOfWeek BETWEEN 1 AND 7),
+    LectureRoom NVARCHAR(MAX) NOT NULL CHECK(LectureRoom <> ' '),
+    SubjectId INT NOT NULL,
+    TeacherId INT NOT NULL,
+
+    FOREIGN KEY (SubjectId) REFERENCES Subjects(Id),
+    FOREIGN KEY (TeacherId) REFERENCES Teachers(teachers_id)
+);
+
+CREATE TABLE GroupsLectures
+(
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    GroupId INT NOT NULL,
+    LectureId INT NOT NULL,
+
+    FOREIGN KEY (GroupId) REFERENCES Groups(groups_id),
+    FOREIGN KEY (LectureId) REFERENCES Lectures(Id)
+);
+
+
 INSERT INTO Faculties (name)
 VALUES
     ('Faculty of Engineering'),
